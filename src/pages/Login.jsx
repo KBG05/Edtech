@@ -20,7 +20,7 @@ const Login=()=>{
         
         try{
             if(formData.username==="admin" && formData.password==="admin" ){
-                const timeout= setTimeout(()=>{navigate("/");setIsLoading(false)},2000)
+                const timeout= setTimeout(()=>{navigate("/Learn");setIsLoading(false)},2000)
                 //todo  change navigate to homepage
             }
             else{throw new Error("Invalid input")}
@@ -39,8 +39,8 @@ const Login=()=>{
     return(
         <div className="flex items-center justify-center min-h-screen">
             <Card className="w-full max-w-md ">
-                <CardHeader className="space-y-1 text-center">
-                    <CardTitle className="text-2xl" > Welcome Back</CardTitle>
+                <CardHeader className="space-y-1 text-center ">
+                    <CardTitle className="text-2xl text-theme-secondary-foreground " > Welcome Back</CardTitle>
                     <CardDescription>Login to Your Account</CardDescription>
                 </CardHeader>
 
