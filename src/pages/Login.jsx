@@ -6,7 +6,7 @@ import { Card, CardAction, CardContent, CardDescription, CardHeader, CardTitle, 
 import { Label} from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, Loader2Icon } from "lucide-react";
 
 const Login=()=>{
     const [showPassword, setShowPassword]=useState(false);
@@ -17,6 +17,7 @@ const Login=()=>{
     const handleSubmit=async(e)=>{
         e.preventDefault();
         setIsLoading(true);
+        
         try{
             if(formData.username==="admin" && formData.password==="admin" ){
                 const timeout= setTimeout(()=>{navigate("/");setIsLoading(false)},2000)
@@ -50,23 +51,23 @@ const Login=()=>{
                             <Input
                                 id="username"
                                 type="text"
-                                placehholder="Enter your username"
+                                placeholder="Enter your username"
                                 value={formData.username}
                                 onChange={e=>handleChange("username",e.target.value)}
                                 required
                             />
                         </div>
 
-                        <div className="space-y-2 placeholder-white">
+                        <div className="space-y-2">
                             <Label className="ml-0.5">Password</Label>
                             <div className="relative">
                                 <Input
-                                    className=" placeholder-white"
                                     id="password"
-                                    placehholder="Enter your Password"
+                                    placeholder="Enter your Password"
                                     value={formData.password}
                                     onChange={e=>handleChange("password",e.target.value)}
                                     required
+                                    
                                 />
                                 <Button 
                                     type="button"
@@ -78,9 +79,8 @@ const Login=()=>{
                                 </Button>
                             </div>
                         </div>
-                        <Button type="submit" className="w-full " disabled={isLoading}>
-                            <LogIn className="h-4 w-4 mr-2"></LogIn>
-                            {isLoading?"signing In" : "Sign  In"}
+                        <Button variant="" type="submit" className="w-full " disabled={isLoading}>
+                            {isLoading?<Loader2Icon className="animate-spin" /> : <><LogIn className="h-4 w-4 mr-2"></LogIn><p>Sign In</p></>}
                         </Button>
                     </form> 
                 </CardContent>
