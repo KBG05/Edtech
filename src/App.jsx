@@ -5,15 +5,17 @@ import { Loader2Icon } from 'lucide-react'
 import { BrowserRouter as Router, Route, Routes, BrowserRouter } from 'react-router'
 import Login from "@/pages/Login"
 import Learn from "@/pages/Learn"
+import Navbar from './components/Navbar'
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
       <Router>
+        <Navbar/>
         <Routes>
-          <Route path='/' element={<Login/>} ></Route>
-          <Route path='/Learn' element={<Learn/>}></Route>
+          <Route path='/login' element={<Login/>} ></Route>
+          <Route path='/learn' element={<Learn/>}></Route>
         </Routes>
       </Router>
     </>

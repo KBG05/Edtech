@@ -165,7 +165,7 @@ const Learn=()=>{
                     </CardContent>
                 </Card>
             </div>
-
+            
         </div>
 
     );
