@@ -88,8 +88,8 @@ const Learn=()=>{
                                         {topic.chapters.map(chapter=>(
                                             <Button
                                                 key={chapter.id} 
-                                                variant={selectedChapter?.id === chapter.id ? "outline" : "ghost"}
-                                                className={"justify-start pl-2"  }
+                                                variant="ghost"
+                                                className={"justify-start pl-2".concat(selectedChapter?.id===chapter.id?" bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground":"")  }
                                                 onClick={()=>{setSelectedChapter(chapter);setSelectedTopic(topic)}}
                                             >
                                                 {chapter.name}

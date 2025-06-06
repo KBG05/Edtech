@@ -37,10 +37,10 @@ const Login=()=>{
     };
 
     return(
-        <div className="flex items-center justify-center min-h-screen">
+        <div className="flex items-center justify-center min-h-screen pb-20 ">
             <Card className="w-full max-w-md ">
                 <CardHeader className="space-y-1 text-center ">
-                    <CardTitle className="text-2xl text-theme-secondary-foreground " > Welcome Back</CardTitle>
+                    <CardTitle className="text-2xl " > Welcome Back</CardTitle>
                     <CardDescription>Login to Your Account</CardDescription>
                 </CardHeader>
 
@@ -64,7 +64,9 @@ const Login=()=>{
                                 <Input
                                     id="password"
                                     placeholder="Enter your Password"
+                                    type={showPassword?"text":"password"} 
                                     value={formData.password}
+                                    
                                     onChange={e=>handleChange("password",e.target.value)}
                                     required
                                     
