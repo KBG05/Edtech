@@ -2,7 +2,7 @@ import { Flag, LogIn } from "lucide-react";
 import React  from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import { Card, CardAction, CardContent, CardDescription, CardHeader, CardTitle, CardFooter} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
 import { Label} from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -81,9 +81,11 @@ const Login=()=>{
                                 </Button>
                             </div>
                         </div>
-                        <Button variant="" type="submit" className="w-full " disabled={isLoading}>
-                            {isLoading?<Loader2Icon className="animate-spin" /> : <><LogIn className="h-4 w-4 mr-2"></LogIn><p>Sign In</p></>}
-                        </Button>
+                        <div>
+                            <Button variant="" type="submit" className="w-full " disabled={isLoading}>
+                                {isLoading?<Loader2Icon className="animate-spin" /> : <><LogIn className="h-4 w-4 mr-2"></LogIn><p>Sign In</p></>}
+                            </Button>
+                        </div>
                     </form> 
                 </CardContent>
             </Card>

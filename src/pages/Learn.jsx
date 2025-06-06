@@ -4,11 +4,11 @@ import { Card, CardContent,CardDescription,CardTitle, CardHeader } from "@/compo
 import { Button } from "@/components/ui/button";
 import mockdata from "@/mockdata/data"
 import SearchBox from "@/components/SearchBox";
-import { ChevronRight } from "lucide-react";
 import { ArrowLeftFromLine } from 'lucide-react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger} from "@/components/ui/accordion";
 import ReactPlayer from "react-player";
 import { Book } from "lucide-react";
+import CategorySelection from "@/components/CategorySelection";
 
 const Learn=()=>{
     const[selectedCategory, setSelectedCategory]=useState(null);
@@ -18,51 +18,14 @@ const Learn=()=>{
     const[searchQuery, setSearchQuery]=useState("");
     
     const filteredTopics=useMemo(()=>{
-       if(!selectedCategory || !searchQuery)return selectedCategory?selectedCategory.topics:[];
+       if(!selectedCategory || !searchQuery){return selectedCategory?selectedCategory.topics:[];}
 
        return selectedCategory.topics.filter(topic=>{
-            return topic.name.toLowerCase().includes(searchQuery.toLowerCase())||
-                topic.chapters.forEach((chapter)=>{
-                return chapter.name.toLowerCase().includes(searchQuery.toLowerCase())
-            })
+            return topic.name.toLowerCase().includes(searchQuery.toLowerCase())
        });
     }, [selectedCategory, searchQuery]);
     
-    // for category selection page
-    const renderCategorySelection=()=>(
-        <div>
-            <div className="flex justify-between items-center">
-                <div className="">
-                    <h1 className="text-4xl font-bold mb-2">Learn</h1>
-                    <p>Choose a category to start learning</p>
-                </div>
-                <SearchBox
-                    onSearch={setSearchQuery}
-                    placeholder="Search Categories"
-                />
-            </div>
 
-            <div className="grid grid-cols-1 gap-6  md:grid-cols-2 lg:grid-cols-3  mt-5">
-                {mockdata.filter(category=>{
-                    return(
-                        !searchQuery||category.name.toLowerCase().includes(searchQuery.toLowerCase())
-                    )
-                }).map(category=>(
-                    <Card key={category.id} onClick={()=>{setSelectedCategory(category)}} className="cursor-pointer hover:shadow-lg transition-all duration-200 hover:scale-105">
-                        <CardHeader>
-                            <CardTitle className="flex justify-between items-center">
-                                {category.name}
-                                <ChevronRight></ChevronRight>
-                            </CardTitle>
-                            <CardDescription>{category.description}</CardDescription>
-                        </CardHeader>
-                    </Card>
-                ))
-                }
-
-            </div>
-        </div>
-    );
     // for  actual learn page
     const renderContent=()=>(
         <div className="flex gap-6">
@@ -71,7 +34,7 @@ const Learn=()=>{
                     <CardHeader  >
                         <CardTitle className="flex items-center justify-between text-lg">
                             {selectedCategory?.name||"Artificial Intelligence"}
-                            <Button className="w-18  h-9 " size="sm" variant="outline" onClick={()=>{setSelectedChapter(null);setSelectedTopic(null); setSelectedCategory(null); setContentType("video")}}>
+                            <Button className="w-18  h-9 " size="sm" variant="outline" onClick={()=>{setSelectedChapter(null);setSelectedTopic(null); setSelectedCategory(null); setContentType("video"); setSearchQuery("")}}>
                                 <ArrowLeftFromLine/>
                                 back
                             </Button>
@@ -80,11 +43,11 @@ const Learn=()=>{
 
                     <CardContent>
                         <SearchBox onSearch={setSearchQuery}></SearchBox>
-                        <Accordion type="single" collapsible className="w-full">
+                        <Accordion  type="single" collapsible className="w-full">
                             {filteredTopics.map(topic=>(
-                                <AccordionItem key={topic.id} value={topic.id}>
+                                <AccordionItem  key={topic.id} value={topic.id}>
                                     <AccordionTrigger>{topic.name}</AccordionTrigger>
-                                    <AccordionContent className=" flex-col flex justify-items-start text-left ">
+                                    <AccordionContent  className=" flex-col flex justify-items-start text-left ">
                                         {topic.chapters.map(chapter=>(
                                             <Button
                                                 key={chapter.id} 
@@ -147,7 +110,8 @@ const Learn=()=>{
                                 contentType==="video"
                                 ?(
                                     <ReactPlayer  width="100%" height="100%" url="/intro.mp4"  muted={true} controls></ReactPlayer>
-                                ):(
+                                )
+                                :(
                                     <p>
                                         This is the reading content for {selectedChapter.name}. In a real application,
                                         this would contain comprehensive educational material, diagrams, and
@@ -172,7 +136,13 @@ const Learn=()=>{
     
     return (
         <div className="max-w-7xl mx-auto p-6">
-            {selectedCategory ? renderContent() : renderCategorySelection()}
+            {selectedCategory ? renderContent() : <CategorySelection 
+                                                            mockData={mockdata} 
+                                                            setSearchQuery={setSearchQuery} 
+                                                            setSelectedCategory={setSelectedCategory}
+                                                            searchQuery={searchQuery}
+                                                            />
+                                                            }
         </div>
     )
 }
