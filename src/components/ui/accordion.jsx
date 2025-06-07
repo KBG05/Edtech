@@ -25,6 +25,7 @@ function AccordionItem({
 function AccordionTrigger({
   className,
   children,
+  child,
   ...props
 }) {
   return (
@@ -36,9 +37,16 @@ function AccordionTrigger({
           className
         )}
         {...props}>
-        {children}
-        <ChevronDownIcon
-          className="text-muted-foreground pointer-events-none size-4 shrink-0 translate-y-0.5 transition-transform duration-200" />
+        <div className="block flex-1">
+          <div className="flex justify-between  ">
+            {children}
+            <ChevronDownIcon
+              className="text-muted-foreground pointer-events-none size-4 shrink-0 translate-y-0.5 transition-transform duration-200" />
+          </div>
+          {child?child:""}
+        </div>
+        
+
       </AccordionPrimitive.Trigger>
     </AccordionPrimitive.Header>
   );

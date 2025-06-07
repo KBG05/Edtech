@@ -9,6 +9,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger} from "@/c
 import ReactPlayer from "react-player";
 import { Book } from "lucide-react";
 import CategorySelection from "@/components/CategorySelection";
+import MenuBar from "@/components/MenuBar";
 
 const Learn=()=>{
     const[selectedCategory, setSelectedCategory]=useState(null);
@@ -16,6 +17,7 @@ const Learn=()=>{
     const[selectedChapter, setSelectedChapter]=useState(null);
     const[contentType, setContentType]=useState("video");
     const[searchQuery, setSearchQuery]=useState("");
+    const[completedChapters, setCompletedChapters]=useState(new Set(["ai-1-1","ai-1-2", "ml-3-1", "dl-1-1" ]));
     
     const filteredTopics=useMemo(()=>{
        if(!selectedCategory || !searchQuery){return selectedCategory?selectedCategory.topics:[];}
@@ -29,43 +31,18 @@ const Learn=()=>{
     // for  actual learn page
     const renderContent=()=>(
         <div className="flex gap-6">
-            <div>
-                <Card className="w-80 h-fit" >
-                    <CardHeader  >
-                        <CardTitle className="flex items-center justify-between text-lg">
-                            {selectedCategory?.name||"Artificial Intelligence"}
-                            <Button className="w-18  h-9 " size="sm" variant="outline" onClick={()=>{setSelectedChapter(null);setSelectedTopic(null); setSelectedCategory(null); setContentType("video"); setSearchQuery("")}}>
-                                <ArrowLeftFromLine/>
-                                back
-                            </Button>
-                        </CardTitle>
-                    </CardHeader>
-
-                    <CardContent>
-                        <SearchBox onSearch={setSearchQuery}></SearchBox>
-                        <Accordion  type="single" collapsible className="w-full">
-                            {filteredTopics.map(topic=>(
-                                <AccordionItem  key={topic.id} value={topic.id}>
-                                    <AccordionTrigger>{topic.name}</AccordionTrigger>
-                                    <AccordionContent  className=" flex-col flex justify-items-start text-left ">
-                                        {topic.chapters.map(chapter=>(
-                                            <Button
-                                                key={chapter.id} 
-                                                variant="ghost"
-                                                className={"justify-start pl-2".concat(selectedChapter?.id===chapter.id?" bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground":"")  }
-                                                onClick={()=>{setSelectedChapter(chapter);setSelectedTopic(topic)}}
-                                            >
-                                                {chapter.name}
-                                            </Button>
-                                        ))}
-                                    </AccordionContent>
-                                </AccordionItem>
-                            ))}
-                        </Accordion>    
-                    </CardContent>
-
-                </Card>
-            </div>
+            <MenuBar
+                filteredTopics={filteredTopics}
+                selectedCategory={selectedCategory}
+                selectedChapter={selectedChapter}
+                setContentType={setContentType}
+                setSearchQuery={setSearchQuery}
+                setSelectedCategory={setSelectedCategory}
+                setSelectedTopic={setSelectedTopic}
+                setSelectedChapter={setSelectedChapter}
+                completedChapters={completedChapters}
+                setCompletedChapters={setCompletedChapters}
+            />
 
             <div className="flex-1">
                 <Card className="">
@@ -76,7 +53,7 @@ const Learn=()=>{
                                     <div className="flex justify-between">
                                         <div>
                                             <CardTitle className=" text-3xl">{selectedTopic.name}</CardTitle>
-                                            <CardDescription className="text-xl ">{"Topic: "+selectedChapter.name}</CardDescription>
+                                            <CardDescription className="text-xl ">{"Topic: "+selectedChapter?.name}</CardDescription>
                                         </div>
                                         <div>
                                             <Button 
@@ -136,13 +113,17 @@ const Learn=()=>{
     
     return (
         <div className="max-w-7xl mx-auto p-6">
-            {selectedCategory ? renderContent() : <CategorySelection 
-                                                            mockData={mockdata} 
-                                                            setSearchQuery={setSearchQuery} 
-                                                            setSelectedCategory={setSelectedCategory}
-                                                            searchQuery={searchQuery}
-                                                            />
-                                                            }
+            {selectedCategory 
+                ? renderContent() 
+                : <CategorySelection 
+                    mockData={mockdata} 
+                    setSearchQuery={setSearchQuery} 
+                    setSelectedCategory={setSelectedCategory}
+                    searchQuery={searchQuery}
+                    header="Learn"
+                    description="select a course to start learning "
+                  />
+            }
         </div>
     )
 }

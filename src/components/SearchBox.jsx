@@ -19,7 +19,7 @@ const SearchBox = ({ onSearch, placeholder = "Search topics..." }) => {
         placeholder={placeholder}
         value={query}
         onChange={(e) => handleSearch(e.target.value)}
-        className="pl-10 bg-theme-card border-theme-border text-theme-text placeholder:text-theme-text-secondary"
+        className="pl-10 bg-card border-border text-foreground placeholder:text-theme-text-secondary"
       />
     </div>
   );

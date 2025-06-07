@@ -3,6 +3,7 @@ const data = [
     id: "ai",
     name: "Artificial Intelligence",
     description: "Fundamentals of AI and machine learning",
+    completedTopics:["Introduction to AI", "Machine Learning"],
     topics: [
       {
         id: 1,
@@ -37,6 +38,7 @@ const data = [
     id: "ml",
     name: "Machine Learning",
     description: "Deep dive into ML algorithms and techniques",
+    completedTopics:["Linear Regression"],
     topics: [
       {
         id: 1,
@@ -71,6 +73,7 @@ const data = [
     id: "dl",
     name: "Deep Learning",
     description: "Advanced neural networks and deep learning",
+    completedTopics:["CNN", "RNN"],
     topics: [
       {
         id: 1,

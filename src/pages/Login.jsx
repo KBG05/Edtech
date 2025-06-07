@@ -20,7 +20,7 @@ const Login=()=>{
         
         try{
             if(formData.username==="admin" && formData.password==="admin" ){
-                const timeout= setTimeout(()=>{navigate("/Learn");setIsLoading(false)},2000)
+                const timeout= setTimeout(()=>{navigate("/learn");setIsLoading(false)},2000)
                 //todo  change navigate to homepage
             }
             else{throw new Error("Invalid input")}
