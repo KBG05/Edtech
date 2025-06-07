@@ -5,6 +5,8 @@ import mockdata from "@/mockdata/data"
 import CategorySelection from "@/components/CategorySelection";
 import ReactPlayer from "react-player";
 import Assesment from "@/components/Assesment";
+import QuestionNavigator from "@/components/QuestionNavigator";
+import { testData } from "@/mockdata/testData";
 
 const Test=()=>{
     const[selectedCategory, setSelectedCategory]=useState(null);
@@ -23,7 +25,16 @@ const Test=()=>{
         <div className="max-w-7xl mx-auto p-6">
             
             {
-                selectedCategory
+                selectedTopic
+                ?(
+                    <Assesment 
+                        testData={testData}
+                        selectedTopic={selectedTopic}
+                        questionData={testData}
+                        selectedCategory={selectedCategory}
+                    />
+                )
+                :selectedCategory
                 ?<div className="flex gap-6 ">
                     <MenuBar
                         filteredTopics={filteredTopics}
@@ -35,7 +46,7 @@ const Test=()=>{
                         selectedTopic={selectedTopic}
                         completedTopics={new Set(selectedCategory.completedTopics)}
                     />
-                    <Assesment selectedTopic={selectedTopic}/>
+                    <Assesment/>
                 </div>
                 
                 :<CategorySelection 
@@ -46,6 +57,7 @@ const Test=()=>{
                         header="Test"
                         description="select a course to take test on "
                 />
+                
             }
             
         </div>

@@ -3,9 +3,6 @@ import { useState,useMemo } from "react";
 import { Card, CardContent,CardDescription,CardTitle, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import mockdata from "@/mockdata/data"
-import SearchBox from "@/components/SearchBox";
-import { ArrowLeftFromLine } from 'lucide-react';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger} from "@/components/ui/accordion";
 import ReactPlayer from "react-player";
 import { Book } from "lucide-react";
 import CategorySelection from "@/components/CategorySelection";
