@@ -32,6 +32,7 @@ const Test=()=>{
                         selectedTopic={selectedTopic}
                         questionData={testData}
                         selectedCategory={selectedCategory}
+                        setSelectedTopic={setSelectedTopic}
                     />
                 )
                 :selectedCategory

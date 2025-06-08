@@ -7,6 +7,7 @@ import ReactPlayer from "react-player";
 import { Book } from "lucide-react";
 import CategorySelection from "@/components/CategorySelection";
 import MenuBar from "@/components/MenuBar";
+import { useLocation } from "react-router";
 
 const Learn=()=>{
     const[selectedCategory, setSelectedCategory]=useState(null);
@@ -15,7 +16,7 @@ const Learn=()=>{
     const[contentType, setContentType]=useState("video");
     const[searchQuery, setSearchQuery]=useState("");
     const[completedChapters, setCompletedChapters]=useState(new Set(["ai-1-1","ai-1-2", "ml-3-1", "dl-1-1" ]));
-    
+    const location=useLocation()
     const filteredTopics=useMemo(()=>{
        if(!selectedCategory || !searchQuery){return selectedCategory?selectedCategory.topics:[];}
 

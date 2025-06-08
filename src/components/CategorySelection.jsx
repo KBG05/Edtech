@@ -3,15 +3,20 @@ import { Card,CardDescription,CardTitle, CardHeader, CardContent } from "@/compo
 import { ChevronRight } from "lucide-react";
 import { Progress } from "./ui/progress";
 import { Clock } from "lucide-react";
+import { useLocation } from "react-router";
 
 const CategorySelection=({
-        searchQuery,
-        setSearchQuery, 
-        mockData, 
-        setSelectedCategory,
-        header,
-        description
-    })=>(
+    searchQuery,
+    setSearchQuery, 
+    mockData, 
+    setSelectedCategory,
+    header,
+    description
+})=>{
+
+    const location=useLocation()
+
+    return(
         <div>
             <div className="flex justify-between items-center">
                 <div className="">
@@ -38,17 +43,29 @@ const CategorySelection=({
                                 </CardHeader>
 
                                 <CardContent>
-                                    <div className="flex justify-between items-center text-muted-foreground text-sm mb-2">
-                                        <p>Progress</p>
-                                        <p className="text-foreground">50%</p> {/*todo*/}
-                                    </div>
-                                    <Progress className="mb-5" value={50}/>
-                                    <div className="flex justify-between text-muted-foreground text-sm">
-                                        <div className="flex gap-1 items-center">
-                                            <Clock className="stroke-1 size-4" />   
-                                            <p className="pt-0.5">12h:30m</p>
+                                    {
+                                        location.pathname==="/learn"
+                                        ?<>
+                                            <div className="flex justify-between items-center text-muted-foreground text-sm mb-2">
+                                                <p>Progress</p>
+                                                <p className="text-foreground">50%</p> {/*todo*/}
+                                            </div>
+                                            <Progress className="mb-5" value={50}/>
+                                        </>
+                                        :"" 
+                                    }
+                                    <div className=" space-y-1 justify-between text-muted-foreground text-sm">
+                                        <div className="flex justify-between">
+                                            <p>Duration:</p>
+                                            <div className="flex gap-1 items-center">
+                                                <Clock className="stroke-1 size-4" />   
+                                                <p className="pt-0.5">12h:30m</p>
+                                            </div>
                                         </div>
-                                        <p>4 topics</p>
+                                        <div className="flex justify-between">
+                                            {location.pathname==="/learn" || location.pathname==="/test"?<p>Topics:</p>:""}
+                                            <p>3 topics</p>
+                                        </div>
                                         
                                     </div>
                                 </CardContent>
@@ -60,4 +77,5 @@ const CategorySelection=({
             </div>
         </div>
     )
+}
 export default CategorySelection
