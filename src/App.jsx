@@ -7,6 +7,7 @@ import Navbar from './components/Navbar'
 import { ThemeProvider } from './components/ThemeProvider'
 import Test from './pages/Test'
 import Certify from './pages/Certify'
+import NotFound from './pages/NotFound'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -29,6 +30,7 @@ function App() {
 
             <Route path='/certify' element={<Certify/>}></Route>
             <Route path='/certify/:categoryId' element={<Certify/>}></Route>
+            <Route path="*" element={<NotFound/>}></Route>
           </Routes>
         </Router>
       </ThemeProvider>
