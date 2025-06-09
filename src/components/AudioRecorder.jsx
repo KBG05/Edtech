@@ -2,8 +2,7 @@ import React, { useState, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Mic, Mic2, MicOff } from 'lucide-react';
 import { SarvamAIClient } from 'sarvamai';
-import fs from "fs"
-import { env } from 'process';
+
 const API_KEY="818a5599-7bcc-47aa-9c6a-be51da266dba"
 
 const AudioRecorder = ({handleAnswerChange}) => {

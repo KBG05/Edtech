@@ -61,13 +61,12 @@ const Assesment = ({ selectedTopic, questionBank, answerBank, setSelectedTopic, 
     };
 
     const handleNextTest = () => {
-        setCompleted(0);
-        if (setSelectedTopic) {
-            setSelectedTopic(null);
+        if(location.pathname.startsWith("/certify")){
+            navigate(`/certify`)
         }
-        setAnswers([""]);
-        setCurrentQuestion(1);
-        navigate("/test");
+        else if(location.pathname.startsWith("/test")){
+            navigate(`/test/${selectedCategory.id}`);
+        }
     };
 
     const isTopicSelected = ()=>{
@@ -75,7 +74,7 @@ const Assesment = ({ selectedTopic, questionBank, answerBank, setSelectedTopic, 
         else if(location.pathname.startsWith("/certify") && selectedCategory!==null){return true;}
         else return false
     }
-
+    const checkFail=handleCompletion() / effectiveQuestionBank.length<0.5
     return (
         completed ? (
             <div className="flex max-w-[80%] mx-auto items-center justify-center min-h-[50vh]">
@@ -83,14 +82,24 @@ const Assesment = ({ selectedTopic, questionBank, answerBank, setSelectedTopic, 
                     <CardHeader className="mx-auto">
                         <CardTitle>
                             <div className="space-y-4">
-                                <div className={`mx-auto w-28 h-28 rounded-full flex items-center justify-center mb-4 ${handleCompletion() / effectiveQuestionBank.length < 0.5 ? "bg-red-100" : "bg-green-100"}`}>
+                                <div className={` mx-auto w-28 h-28 rounded-full flex items-center justify-center mb-4 ${handleCompletion() / effectiveQuestionBank.length < 0.5 ? " bg-red-300" : " bg-green-300"}`}>
                                     {handleCompletion() / effectiveQuestionBank.length < 0.5
                                         ? <CircleX className="h-14 w-14 text-red-700" />
                                         : <ClipboardCheck className="h-14 w-14 text-green-700" />
                                     }
                                 </div>
-                                <p className={`tracking-tighter flex items-center justify-center text-3xl font-extrabold ${effectiveQuestionBank.length > 0 && handleCompletion() / effectiveQuestionBank.length < 0.5 ? "text-red-700" : "text-green-700"}`}>
-                                    {effectiveQuestionBank.length > 0 && handleCompletion() / effectiveQuestionBank.length < 0.5 ? "Test Failed" : "Test Passed"}
+                                <p className={`tracking-tighter flex items-center justify-center text-3xl font-extrabold ${checkFail? "text-red-700" : "text-green-700"}`}>
+                                    
+                                    {
+                                        checkFail && location.pathname.startsWith("/test")
+                                        ? "Test Failed" 
+                                        : !checkFail && location.pathname.startsWith("/test")
+                                        ?"Test Passed"
+                                        :!checkFail && location.pathname.startsWith("/certify")
+                                        ?"Certified Successfully"
+                                        :"Not certified"
+                                    }
+
                                 </p>
                             </div>
                             <p className="mt-7 flex items-center justify-center text-5xl font-bold">{effectiveQuestionBank.length > 0 ? Math.round((handleCompletion() / effectiveQuestionBank.length) * 100) : 0}%</p>
@@ -102,7 +111,7 @@ const Assesment = ({ selectedTopic, questionBank, answerBank, setSelectedTopic, 
                     <CardContent className="flex flex-wrap justify-center gap-4">
                         <Button variant="outline" className="font-bold h-[50px]" onClick={handleRetakeTest}>
                             <RotateCcw className="size-6 mr-2" />
-                            Retake Test
+                                {location.pathname.startsWith("/test")?"Retake Test":"Retake Certification"}
                         </Button>
                         <Button className="font-bold h-[49px]" onClick={handleLearnThisTopic}>
                             <Book className="size-6 mr-2" />
@@ -110,7 +119,7 @@ const Assesment = ({ selectedTopic, questionBank, answerBank, setSelectedTopic, 
                         </Button>
                         <Button className="h-[50px] font-bold" onClick={handleNextTest}>
                             <ArrowRight className="size-6 mr-2" />
-                            Next Test
+                                    {location.pathname.startsWith("/test")?"Next Test":"Next Certification"}
                         </Button>
                     </CardContent>
                 </Card>
