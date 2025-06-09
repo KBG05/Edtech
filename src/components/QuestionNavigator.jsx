@@ -1,14 +1,14 @@
 import { Button } from "./ui/button";
 import { Check } from "lucide-react";
 import { Card, CardContent, CardDescription, CardTitle, CardHeader } from "./ui/card";
-import { useLocation } from "react-router";
+import { useLocation, useParams } from "react-router";
 
 const QuestionNavigator = ({ questionBank, answers, currentQuestion, setCurrentQuestion, navigate }) => {
     const location=useLocation();
     const handleQuestionClick = (questionNumber) => {
         setCurrentQuestion(questionNumber);
     };
-
+    const {categoryId, topicId}=useParams()
     // FIXED: Ensured answeredCount correctly filters for non-empty answers at any index
     const answeredCount = answers.filter(answer => answer !== undefined && answer !== "").length;
 
@@ -45,7 +45,7 @@ const QuestionNavigator = ({ questionBank, answers, currentQuestion, setCurrentQ
                         variant="default"
                         onClick={()=>{
                             location.pathname.startsWith("/test")
-                            ?navigate(`/test`)
+                            ?navigate(`/test/${categoryId}`)
                             :navigate("/certify");
                         }}
                     >

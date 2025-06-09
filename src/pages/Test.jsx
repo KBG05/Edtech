@@ -6,7 +6,7 @@ import { courses as categories} from "@/mockdata/data";
 import CategorySelection from "@/components/CategorySelection";
 import Assesment from "@/components/Assesment";
 import { testData } from "@/mockdata/testData";
-
+import { topics } from "@/mockdata/testData";
 const Test = () => {
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [selectedTopic, setSelectedTopic] = useState(null);
@@ -64,9 +64,9 @@ const Test = () => {
             return [];
         }
         if (!searchQuery) {
-            return selectedCategory.topics;
+            return topics[selectedCategory.id];
         }
-        return selectedCategory.topics.filter(topic =>
+        return topics[selectedCategory.id].filter(topic =>
             topic.name.toLowerCase().includes(searchQuery.toLowerCase())
         );
     }, [selectedCategory, searchQuery]);
@@ -84,7 +84,14 @@ const Test = () => {
                     />
                 ) : selectedCategory ? (
                     <div className="flex flex-col md:flex-row gap-6">
-                        <MenuBar
+                        {/* <CategorySelection
+                        categories={topics[selectedCategory.id]}
+                        description={""}
+                        header={""}
+                        searchQuery={searchQuery}
+                        setSearchQuery={setSearchQuery}
+                        /> */}
+                        {/* <MenuBar
                             filteredTopics={filteredTopics}
                             selectedCategory={selectedCategory}
                             selectedTopic={selectedTopic}
@@ -92,11 +99,18 @@ const Test = () => {
                             navigate={navigate}
                             defaultValue={selectedCategory.id}
                             completedTopics={new Set(selectedCategory.completedTopics || [])}
-                        />
+                        /> */}
                         <Assesment
                             selectedTopic={null}
                             questionBank={[]}
                             answerBank={[]}
+                            child={<CategorySelection
+                        categories={topics[selectedCategory.id]}
+                        description={""}
+                        header={""}
+                        searchQuery={searchQuery}
+                        setSearchQuery={setSearchQuery}
+                        />}
                         />
                     </div>
                 ) : (

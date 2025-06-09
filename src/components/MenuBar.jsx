@@ -92,7 +92,7 @@ const MenuBar = ({ completedChapters, completedTopics, filteredTopics, setSearch
                                                 onClick={() => { handleChapterClick(topic, chapter) }}
                                             >
                                                 <div className="flex gap-1 items-center">
-                                                    {completedChapters.has(chapter.id) ? <BadgeCheck className="stroke-2 size-5  fill-primary" /> : <CirclePlay className="stroke-2 size-4" />}
+                                                    {completedChapters.has(chapter.id) ? <BadgeCheck className="stroke-2 size-5  fill-primary text-secondary-foreground" /> : <CirclePlay className="stroke-2 size-4" />}
                                                     {chapter.name}
                                                 </div>
                                                 <p className={"text-muted-foreground size-4".concat(selectedChapter?.id === chapter.id ? " text-primary-foreground" : "")}>25m</p>
@@ -109,7 +109,7 @@ const MenuBar = ({ completedChapters, completedTopics, filteredTopics, setSearch
                                             <Button
                                                 key={topic.id}
                                                 variant="ghost"
-                                                className={"justify-between border-[1px] border-border active:bg-primary ".concat(completedTopics?.has(topic.name) ? "bg-primary text-primary-foreground hover:text-primary-foreground hover:bg-primary" : "")}
+                                                className={"justify-between border-[1px] border-border active:bg-primary "}
                                                 onClick={() => { handleTopicClick(topic) }}
                                             >
                                                 <div className={"flex items-center gap-1 "}>
@@ -118,7 +118,7 @@ const MenuBar = ({ completedChapters, completedTopics, filteredTopics, setSearch
                                                 </div>
                                                 <span className="flex items-center text-xs">
                                                     <Clock className="size-3 stroke-2" />
-                                                    <p className="pt-1 pl-0.5">25m</p>
+                                                    <p className="pt-1 pl-0.5">{topic.duration}</p>
                                                 </span>
                                             </Button>
                                         ))}

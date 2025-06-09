@@ -37,7 +37,7 @@ const themes = {
   }
 }
 
-export function ThemeProvider({ children, defaultTheme = 'light', ...props }) {
+export function ThemeProvider({ children, defaultTheme = 'ocean', ...props }) {
   const [theme, setTheme] = useState(defaultTheme)
 
   useEffect(() => {

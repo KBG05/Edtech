@@ -8,7 +8,6 @@ import { useLocation, useParams, useNavigate } from "react-router";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Book } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import Certify from "./Certify";
 
 const Learn = () => {
     const [selectedCategory, setSelectedCategory] = useState(null);

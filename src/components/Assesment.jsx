@@ -9,7 +9,7 @@ import { Progress } from "./ui/progress";
 import { Textarea } from "./ui/textarea";
 import AudioRecorder from "@/components/AudioRecorder";
 
-const Assesment = ({ selectedTopic, questionBank, answerBank, setSelectedTopic, selectedCategory }) => {
+const Assesment = ({ selectedTopic, questionBank, answerBank, selectedCategory, child }) => {
     const navigate = useNavigate();
     const location=useLocation();
     const [answers, setAnswers] = useState([""]);
@@ -126,14 +126,14 @@ const Assesment = ({ selectedTopic, questionBank, answerBank, setSelectedTopic, 
             </div>
         ) : isTopicSelected() ? (
             <div className="flex flex-col md:flex-row gap-6">
-                <QuestionNavigator
+                {/* <QuestionNavigator
                     selectedTopic={selectedTopic}
                     questionBank={effectiveQuestionBank}
                     answers={answers}
                     currentQuestion={currentQuestion}
                     setCurrentQuestion={setCurrentQuestion}
                     navigate={navigate}
-                />
+                /> */}
                 <div className="flex-1 space-y-5">
                     <b className="text-4xl">{selectedTopic?.name ||selectedCategory?.name}</b>
                     <Card>
@@ -144,7 +144,17 @@ const Assesment = ({ selectedTopic, questionBank, answerBank, setSelectedTopic, 
                             />
                         </div>
                     </Card>
-                    <Card>
+                    <div className="flex gap-6">
+                    <QuestionNavigator
+                        selectedTopic={selectedTopic}
+                        questionBank={effectiveQuestionBank}
+                        answers={answers}
+                        currentQuestion={currentQuestion}
+                        setCurrentQuestion={setCurrentQuestion}
+                        navigate={navigate}
+                    />
+                
+                    <Card className="flex-1">
                         <CardHeader className="text-xl font-bold">
                             Q{currentQuestion}. {effectiveQuestionBank[currentQuestion - 1]?.question || "Loading question..."}
                         </CardHeader>
@@ -179,18 +189,20 @@ const Assesment = ({ selectedTopic, questionBank, answerBank, setSelectedTopic, 
                         </CardContent>
                     </Card>
                 </div>
+                </div>
             </div>
         ) : (
             <div className="flex-1">
                 <Card>
                     <CardHeader>
                         <CardTitle className="text-3xl flex-1">WELCOME</CardTitle>
+                            <p className="text-muted-foreground text-xl">Select a Test to Attempt</p>
                     </CardHeader>
                     <CardContent className="min-w-auto rounded-2xl pl-7 pr-7 pb-7 pt-0 ">
-                        <div className="text-center ">
+                        {/* <div className="text-center ">
                             <ClipboardCheck className="w-16 h-16 mx-auto mb-4 opacity-50"></ClipboardCheck>
-                            <p className="text-muted-foreground text-xl">Select a Test to Attempt</p>
-                        </div>
+                        </div> */}
+                        {child}
                     </CardContent>
                 </Card>
             </div>
