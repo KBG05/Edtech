@@ -32,7 +32,7 @@ const Navbar=()=>{
                                     key={item.path}
                                     to={item.path}
                                     className={"text-foreground hover:bg-accent/80 transition-all hover:text-accent-foreground py-2 px-2.5 text-[15px] rounded-md flex gap-1 items-center "
-                                        .concat(location.pathname==item.path?" bg-primary text-primary-foreground hover:bg-primary/100 hover:text-primary-foreground/100" :"")
+                                        .concat(location.pathname.startsWith(item.path)?" bg-primary text-primary-foreground hover:bg-primary/100 hover:text-primary-foreground/100" :"")
                                     }
                                 >
                                     {item.icon}

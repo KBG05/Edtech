@@ -1,70 +1,117 @@
 import React from "react";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
+import { useParams, useNavigate } from "react-router";
 import MenuBar from "@/components/MenuBar";
-import mockdata from "@/mockdata/data"
+import { courses as categories} from "@/mockdata/data";
 import CategorySelection from "@/components/CategorySelection";
-import ReactPlayer from "react-player";
 import Assesment from "@/components/Assesment";
-import QuestionNavigator from "@/components/QuestionNavigator";
 import { testData } from "@/mockdata/testData";
 
-const Test=()=>{
-    const[selectedCategory, setSelectedCategory]=useState(null);
-    const[selectedTopic,setSelectedTopic]=useState(null);
-    const[searchQuery, setSearchQuery]=useState("");
+const Test = () => {
+    const [selectedCategory, setSelectedCategory] = useState(null);
+    const [selectedTopic, setSelectedTopic] = useState(null);
+    const [searchQuery, setSearchQuery] = useState("");
 
-    const filteredTopics=useMemo(()=>{
-       if(!selectedCategory || !searchQuery){return selectedCategory?selectedCategory.topics:[];}
+    const navigate = useNavigate();
+    const { categoryId, topicId } = useParams();
 
-       return selectedCategory.topics.filter(topic=>{
-            return topic.name.toLowerCase().includes(searchQuery.toLowerCase())
-       });
+    useEffect(() => {
+        if (!categoryId) {
+            setSelectedCategory(null);
+            setSelectedTopic(null);
+            return;
+        }
+
+        const foundCategory = categories.find(cat => String(cat.id) === categoryId);
+
+        if (!foundCategory) {
+            setSelectedCategory(null);
+            setSelectedTopic(null);
+            navigate('/test');
+            return;
+        }
+
+        setSelectedCategory(foundCategory);
+        let currentTopic = null;
+
+        if (topicId) {
+            currentTopic = foundCategory.topics.find(top => String(top.id) === topicId);
+            setSelectedTopic(currentTopic || null);
+        } else {
+            setSelectedTopic(null);
+        }
+
+    }, [categoryId, topicId, categories, navigate]);
+
+    const questionBank = useMemo(() => {
+        if (selectedCategory && selectedTopic && testData && testData[selectedCategory.id] && testData[selectedCategory.id][selectedTopic.id]) {
+            return testData[selectedCategory.id][selectedTopic.id];
+        }
+        return [];
+    }, [selectedCategory, selectedTopic, testData]);
+
+    const answerBank = useMemo(() => {
+        return questionBank.map((question) => {
+            if (question.options && typeof question.correct !== 'undefined' && question.options[question.correct]) {
+                return String(question.options[question.correct]).trim();
+            }
+            return null;
+        }).filter(answer => answer !== null);
+    }, [questionBank]);
+
+    const filteredTopics = useMemo(() => {
+        if (!selectedCategory) {
+            return [];
+        }
+        if (!searchQuery) {
+            return selectedCategory.topics;
+        }
+        return selectedCategory.topics.filter(topic =>
+            topic.name.toLowerCase().includes(searchQuery.toLowerCase())
+        );
     }, [selectedCategory, searchQuery]);
 
-    return(
+    return (
         <div className="max-w-7xl mx-auto p-6">
-            
             {
-                selectedTopic
-                ?(
-                    <Assesment 
-                        testData={testData}
+                selectedTopic && selectedCategory ? (
+                    <Assesment
+                        questionBank={questionBank}
+                        answerBank={answerBank}
                         selectedTopic={selectedTopic}
-                        questionData={testData}
-                        selectedCategory={selectedCategory}
                         setSelectedTopic={setSelectedTopic}
-                    />
-                )
-                :selectedCategory
-                ?<div className="flex gap-6 ">
-                    <MenuBar
-                        filteredTopics={filteredTopics}
                         selectedCategory={selectedCategory}
+                    />
+                ) : selectedCategory ? (
+                    <div className="flex flex-col md:flex-row gap-6">
+                        <MenuBar
+                            filteredTopics={filteredTopics}
+                            selectedCategory={selectedCategory}
+                            selectedTopic={selectedTopic}
+                            setSearchQuery={setSearchQuery}
+                            navigate={navigate}
+                            defaultValue={selectedCategory.id}
+                            completedTopics={new Set(selectedCategory.completedTopics || [])}
+                        />
+                        <Assesment
+                            selectedTopic={null}
+                            questionBank={[]}
+                            answerBank={[]}
+                        />
+                    </div>
+                ) : (
+                    <CategorySelection
+                        categories={categories}
                         setSearchQuery={setSearchQuery}
-                        setSelectedCategory={setSelectedCategory}
-                        setSelectedTopic={setSelectedTopic}
-                        defaultValue={selectedCategory.id}
-                        selectedTopic={selectedTopic}
-                        completedTopics={new Set(selectedCategory.completedTopics)}
-                    />
-                    <Assesment/>
-                </div>
-                
-                :<CategorySelection 
-                        mockData={mockdata} 
-                        setSearchQuery={setSearchQuery} 
-                        setSelectedCategory={setSelectedCategory}
+                        navigate={navigate}
                         searchQuery={searchQuery}
                         header="Test"
-                        description="select a course to take test on "
-                />
-                
+                        description="Select a course to take test on"
+                    />
+                )
             }
-            
         </div>
-            
+    );
+};
 
-    )
-}
-
-export default Test
+export default Test;

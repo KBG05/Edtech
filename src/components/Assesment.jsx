@@ -1,215 +1,192 @@
 import React from "react";
 import { useState } from "react";
-import { Card, CardContent,CardDescription,CardTitle, CardHeader } from "@/components/ui/card";
+import { useLocation, useNavigate } from "react-router";
+import { Card, CardContent, CardDescription, CardTitle, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowBigLeft, ArrowRight, Book, Car, CircleX, RotateCcw } from "lucide-react";
-import { ClipboardCheck } from "lucide-react";
+import { CircleX, ClipboardCheck, RotateCcw, Book, ArrowRight } from "lucide-react";
 import QuestionNavigator from "./QuestionNavigator";
 import { Progress } from "./ui/progress";
 import { Textarea } from "./ui/textarea";
-import AudioRecorder from "@/components/AudioRecorder"
-import { Navigate, useNavigate } from "react-router";
+import AudioRecorder from "@/components/AudioRecorder";
 
-const Assesment=({selectedTopic, testData, selectedCategory, setSelectedTopic})=>{
-    const navigate=useNavigate();
-    const[answers, setAnswers]=useState([""]);
-    const[currentQuestion, setCurrentQuestion]=useState(1);
-    const[completed, setCompleted]=useState(0)
-    // console.log(((answers.length-1)/testData[selectedCategory.id][selectedTopic.id].length)*100)
-    const questionBank=(selectedCategory && selectedTopic && testData && testData[selectedCategory.id] && testData[selectedCategory.id][selectedTopic.id])
-        ? testData[selectedCategory.id][selectedTopic.id]
-        : [];
-
-    // console.log(questionBank)
-    const answerBank=questionBank.map((question)=>{
-        if (question.options && typeof question.correct !== 'undefined' && question.options[question.correct]){
-            return question.options[question.correct]
-        }
-    });
-    const handleAnswerChange=(e)=>{
-        const newAnswers=[...answers];
+const Assesment = ({ selectedTopic, questionBank, answerBank, setSelectedTopic, selectedCategory }) => {
+    const navigate = useNavigate();
+    const location=useLocation();
+    const [answers, setAnswers] = useState([""]);
+    const [currentQuestion, setCurrentQuestion] = useState(1);
+    const [completed, setCompleted] = useState(0);
+    
+    const effectiveQuestionBank = questionBank || [];
+    const effectiveAnswerBank = answerBank || [];
+    
+    const handleAnswerChange = (value) => {
+        const newAnswers = [...answers];
         while (newAnswers.length <= currentQuestion) {
             newAnswers.push(undefined);
         }
-        newAnswers[currentQuestion]=e;
+        newAnswers[currentQuestion] = value;
         setAnswers(newAnswers);
-
     };
-     const handleCompletion=()=>{
-        let correctAnswersCount=0;
-        for(let i=0; i<answerBank.length;i++){
-            const userAnswer = answers[i + 1]; 
-            const correctAnswer = answerBank[i];
 
+    const handleCompletion = () => {
+        let correctAnswersCount = 0;
+        for (let i = 0; i < effectiveAnswerBank.length; i++) {
+            const userAnswer = answers[i + 1];
+            const correctAnswer = effectiveAnswerBank[i];
             const normalizedUserAnswer = userAnswer ? String(userAnswer).toLowerCase().trim() : '';
             const normalizedCorrectAnswer = correctAnswer ? String(correctAnswer).toLowerCase().trim() : '';
-
             if (normalizedUserAnswer === normalizedCorrectAnswer) {
                 correctAnswersCount++;
             }
         }
         return correctAnswersCount;
-        
     };
-    const handleReatakeTest=()=>{
+
+    const handleRetakeTest = () => {
         setAnswers([""]);
         setCompleted(0);
         setCurrentQuestion(1);
+    };
+
+    const handleLearnThisTopic = () => {
+        if (selectedTopic && selectedTopic.id && selectedCategory.id) {
+            navigate(`/learn/${selectedCategory.id}`);
+        }else if(selectedCategory && location.pathname.startsWith("/certify")){
+            navigate(`/learn/${selectedCategory.id}`)  
+        } else {
+            console.warn("Cannot navigate to learn page: selectedTopic or its ID/categoryId is missing.");
+            navigate(`/learn`);
+        }
         
     };
-    
-    const handleLearnThisTopic=()=>{
-        navigate("/learn")
+
+    const handleNextTest = () => {
+        setCompleted(0);
+        if (setSelectedTopic) {
+            setSelectedTopic(null);
+        }
+        setAnswers([""]);
+        setCurrentQuestion(1);
+        navigate("/test");
+    };
+
+    const isTopicSelected = ()=>{
+        if(location.pathname.startsWith("/test") && selectedTopic!==null) {return true;}
+        else if(location.pathname.startsWith("/certify") && selectedCategory!==null){return true;}
+        else return false
     }
 
-    const handleNextTest=(e)=>{
-        setCompleted(0)
-        setSelectedTopic(null)
-        setAnswers([""])
-        setCurrentQuestion(1)
-        
-    }
-    return(
-        completed?(
-            <div className="flex max-w-[80%] mx-auto  align-middle">
-                <Card className="flex-1 ">
-                    <CardHeader className=" mx-auto">
+    return (
+        completed ? (
+            <div className="flex max-w-[80%] mx-auto items-center justify-center min-h-[50vh]">
+                <Card className="flex-1 text-center">
+                    <CardHeader className="mx-auto">
                         <CardTitle>
                             <div className="space-y-4">
-                                <div className={"mx-auto w-28 h-28 bg-red-100 rounded-full flex items-center justify-center mb-4 ".concat(!handleCompletion()/questionBank.length<1?"bg-green-100":"")}>
-                                    {handleCompletion()/questionBank.length<0.5
-                                    ?<CircleX className="h-14 w-14 text-red-700 "/>
-                                    :<ClipboardCheck className="h-14 w-14 text-green-700"/>
+                                <div className={`mx-auto w-28 h-28 rounded-full flex items-center justify-center mb-4 ${handleCompletion() / effectiveQuestionBank.length < 0.5 ? "bg-red-100" : "bg-green-100"}`}>
+                                    {handleCompletion() / effectiveQuestionBank.length < 0.5
+                                        ? <CircleX className="h-14 w-14 text-red-700" />
+                                        : <ClipboardCheck className="h-14 w-14 text-green-700" />
                                     }
-
                                 </div>
-
-                                <p className={"tracking-tighter flex items-center justify-center text-3xl font-extrabold ".concat(handleCompletion()/questionBank.length<0.5?"text-red-700":"text-green-700")}>
-                                    {handleCompletion()/questionBank.length<0.5?<>Test Failed</>:"Test Passed"}
+                                <p className={`tracking-tighter flex items-center justify-center text-3xl font-extrabold ${effectiveQuestionBank.length > 0 && handleCompletion() / effectiveQuestionBank.length < 0.5 ? "text-red-700" : "text-green-700"}`}>
+                                    {effectiveQuestionBank.length > 0 && handleCompletion() / effectiveQuestionBank.length < 0.5 ? "Test Failed" : "Test Passed"}
                                 </p>
                             </div>
-                            <p className="mt-7 flex items-center justify-center text-5xl font-bold">{handleCompletion()/questionBank.length*100}%</p>
+                            <p className="mt-7 flex items-center justify-center text-5xl font-bold">{effectiveQuestionBank.length > 0 ? Math.round((handleCompletion() / effectiveQuestionBank.length) * 100) : 0}%</p>
                         </CardTitle>
                         <CardDescription>
-                            <p className="text-[16px]">You Answered {handleCompletion()} of {questionBank.length} Questions Correctly</p>
-                        </CardDescription>           
+                            <p className="text-[16px]">You Answered {handleCompletion()} of {effectiveQuestionBank.length} Questions Correctly</p>
+                        </CardDescription>
                     </CardHeader>
-
-                    <CardContent className="flex justify-center gap-4">
-                        <Button variant="outline" className="font-bold h-[50px]" onClick={()=>{handleReatakeTest()}}>
-                            <RotateCcw className="size-6"/>
+                    <CardContent className="flex flex-wrap justify-center gap-4">
+                        <Button variant="outline" className="font-bold h-[50px]" onClick={handleRetakeTest}>
+                            <RotateCcw className="size-6 mr-2" />
                             Retake Test
                         </Button>
-                        <Button className="font-bold h-[49px]" onClick={()=>{handleLearnThisTopic()}}>
-                            <Book className="size-6"/>
+                        <Button className="font-bold h-[49px]" onClick={handleLearnThisTopic}>
+                            <Book className="size-6 mr-2" />
                             Learn This Topic
                         </Button>
-                        <Button variant="" className=" h-[50px] font-bold" onClick={()=>{handleNextTest("/test")}}>
-                            <ArrowRight className="size-6"/>
+                        <Button className="h-[50px] font-bold" onClick={handleNextTest}>
+                            <ArrowRight className="size-6 mr-2" />
                             Next Test
                         </Button>
                     </CardContent>
                 </Card>
-
             </div>
-        ):
-        selectedTopic
-        ?(
-            <div className="flex gap-6">
+        ) : isTopicSelected() ? (
+            <div className="flex flex-col md:flex-row gap-6">
                 <QuestionNavigator
-                        selectedTopic={selectedTopic}
-                        questionData={testData}
-                        selectedCategory={selectedCategory}
-                        answers={answers}
-                        currentQuestion={currentQuestion}
-                        setCurrentQuestion={setCurrentQuestion}
-                    />
+                    selectedTopic={selectedTopic}
+                    questionBank={effectiveQuestionBank}
+                    answers={answers}
+                    currentQuestion={currentQuestion}
+                    setCurrentQuestion={setCurrentQuestion}
+                    navigate={navigate}
+                />
                 <div className="flex-1 space-y-5">
-                    <b className="text-4xl">{selectedTopic.name}</b>
-                    
+                    <b className="text-4xl">{selectedTopic?.name ||selectedCategory?.name}</b>
                     <Card>
-                        <div className="w-[95%] m-auto">
-                            <p className="text-sm pb-4">Question {currentQuestion} of {questionBank.length} </p>
+                        <div className="w-[95%] m-auto py-4">
+                            <p className="text-sm pb-4">Question {currentQuestion} of {effectiveQuestionBank.length} </p>
                             <Progress
-                                className=""
-                                value={((currentQuestion)/questionBank.length)*100}
+                                value={(currentQuestion / effectiveQuestionBank.length) * 100}
                             />
                         </div>
                     </Card>
                     <Card>
                         <CardHeader className="text-xl font-bold">
-                            Q{currentQuestion}. {questionBank[currentQuestion-1].question}
+                            Q{currentQuestion}. {effectiveQuestionBank[currentQuestion - 1]?.question || "Loading question..."}
                         </CardHeader>
                         <CardContent className="space-y-10">
-                            <Textarea className="h-36 " placeholder="input your answer"
-                                value={answers[currentQuestion]||""}
-                                onChange={e=>{handleAnswerChange(e.target.value)}}
-
+                            <Textarea className="h-36" placeholder="Input your answer"
+                                value={answers[currentQuestion] || ""}
+                                onChange={e => { handleAnswerChange(e.target.value) }}
                             />
                             <AudioRecorder
                                 handleAnswerChange={handleAnswerChange}
                             />
                             <div className="flex justify-between">
-                                <Button 
+                                <Button
                                     variant="outline"
-                                    disabled={currentQuestion===1}
-                                    onClick={()=>{setCurrentQuestion(currentQuestion-1);}}
+                                    disabled={currentQuestion === 1}
+                                    onClick={() => { setCurrentQuestion(currentQuestion - 1); }}
                                 >
                                     Previous
                                 </Button>
-                                <Button 
+                                <Button
                                     variant="default"
-                                    onClick={()=>{currentQuestion<questionBank.length-1?setCurrentQuestion(currentQuestion=>currentQuestion+1):setCompleted(1)}}
-                                    disabled={answers[currentQuestion] ?false:true}
+                                    onClick={() => {
+                                        currentQuestion < effectiveQuestionBank.length
+                                            ? setCurrentQuestion(currentQuestion + 1)
+                                            : setCompleted(1);
+                                    }}
+                                    disabled={!answers[currentQuestion]}
                                 >
-                                    {currentQuestion==questionBank.length?"Submit":"Next Question"}
+                                    {currentQuestion === effectiveQuestionBank.length ? "Submit" : "Next Question"}
                                 </Button>
-
                             </div>
-
                         </CardContent>
                     </Card>
                 </div>
             </div>
-        )
-        :(
-            <div className="flex-1 ">
-                <Card className="">
+        ) : (
+            <div className="flex-1">
+                <Card>
                     <CardHeader>
-                            {
-                                <CardTitle className={!selectedTopic?"text-3xl flex-1":"flex-1"}>{selectedTopic?.name || "WELCOME"}</CardTitle>
-                            }
+                        <CardTitle className="text-3xl flex-1">WELCOME</CardTitle>
                     </CardHeader>
-
                     <CardContent className="min-w-auto rounded-2xl pl-7 pr-7 pb-7 pt-0 ">
-                        {
-                            selectedTopic
-                            ?(
-                                contentType==="video"
-                                ?(
-                                    <ReactPlayer  width="100%" height="100%" url="/intro.mp4"  muted={true} controls></ReactPlayer>
-                                )
-                                :(
-                                    <p>
-                                        This is the reading content for {selectedChapter.name}. In a real application,
-                                        this would contain comprehensive educational material, diagrams, and
-                                        interactive elements to help you learn the topic effectively.
-                                    </p>
-                                )
-                            )
-                            :(
-                                <div className="text-center ">
-                                    <ClipboardCheck className="w-16 h-16 mx-auto mb-4 opacity-50"></ClipboardCheck>
-                                    <p className="text-muted-foreground text-xl">Select a Test to Attempt</p>
-                                </div>
-                            )
-                        }
+                        <div className="text-center ">
+                            <ClipboardCheck className="w-16 h-16 mx-auto mb-4 opacity-50"></ClipboardCheck>
+                            <p className="text-muted-foreground text-xl">Select a Test to Attempt</p>
+                        </div>
                     </CardContent>
                 </Card>
             </div>
         )
+    );
+};
 
-    )
-}
-
-export default Assesment
+export default Assesment;
