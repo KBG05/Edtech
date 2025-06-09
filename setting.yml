@@ -1,2 +1,0 @@
-- name: AI Code Review Action
-  uses: villesau/ai-codereviewer@v2.7.0
