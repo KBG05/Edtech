@@ -8,10 +8,10 @@ import { useNavigate } from "react-router"
 const RecentActivity=({isLoading, dashboardData})=>{
     const navigate=useNavigate();
     return(
-        <div className="flex justify-between px-6 gap-12">
+        <div className=" px-2 md:px-6 mt-6 gap-12">
             <Card className="flex-1">
                 <CardHeader>
-                    <CardTitle className="text-2xl">
+                    <CardTitle className="text-lg md:text-2xl font-semibold mb-2">
                         Recent Activity
                     </CardTitle>
                 </CardHeader>

@@ -26,7 +26,7 @@ function getCssVariable(variableName) {
 }
 
 const chartData = [
-  { browser: "safari",score:100, fill: "foreground" },
+  { browser: "chrome",score:100, fill: "foreground" },
 ]
 
 const chartConfig = {

@@ -345,5 +345,24 @@
   }
   body {
     @apply bg-background text-foreground;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    width: 100vw;
+    overflow-x: hidden; 
+    
+    html {
+    font-size: 16px;
+  }
+  @media (max-width: 640px) {
+    html {
+      font-size: 15px;
+    }
+  }
+  @media (max-width: 480px) {
+    html {
+      font-size: 14px;
+      }
+    }
   }
 }

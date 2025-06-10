@@ -72,9 +72,10 @@ const Test = () => {
     }, [selectedCategory, searchQuery]);
 
     return (
-        <div className="max-w-7xl mx-auto p-6">
+        <div className="max-w-7xl mx-auto p-2 md:p-6">
             {
                 selectedTopic && selectedCategory ? (
+                <div className="flex flex-col lg:flex-row gap-4 w-full">
                     <Assesment
                         questionBank={questionBank}
                         answerBank={answerBank}
@@ -82,6 +83,7 @@ const Test = () => {
                         setSelectedTopic={setSelectedTopic}
                         selectedCategory={selectedCategory}
                     />
+                </div>
                 ) : selectedCategory ? (
                     <div className="flex flex-col md:flex-row gap-6">
                         {/* <CategorySelection

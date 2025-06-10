@@ -48,7 +48,7 @@ const Login=()=>{
     };
 
     return(
-        <div className="flex items-center justify-center min-h-screen pb-20 ">
+        <div className="flex items-center justify-center min-h-screen sm:w-full pb-20 ">
             <Card className="w-full max-w-md ">
                 <CardHeader className="space-y-1 text-center ">
                     <CardTitle className="text-2xl " > Welcome Back</CardTitle>

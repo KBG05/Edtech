@@ -165,7 +165,7 @@ const Learn = () => {
     );
 
     return (
-        <div className="max-w-7xl mx-auto p-6">
+        <div className="w-full max-w-[98vw] md:max-w-[70%] mx-auto pt-5 px-2">
             {selectedCategory
                 ? renderContent()
                 : <CategorySelection

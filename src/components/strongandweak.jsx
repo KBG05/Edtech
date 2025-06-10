@@ -12,10 +12,10 @@ const StrongAndWeak=({dashboardData, isLoading})=>{
             navigate(`/learn/${categoryId}`)
         }
 
-    return(<div className="flex justify-between px-6 gap-12">
-                        <Card className="flex-1">
+    return(<div className="flex flex-col md:flex-row justify-between px-2 md:px-6 gap-12">
+                        <Card className="flex-1 mb-4 md:mb-0">
                             <CardHeader>
-                                <CardTitle className="text-2xl ">
+                                <CardTitle className=" text-xl md:text-2xl ">
                                     Strong Areas
                                 </CardTitle>
                                 <CardContent className="flex flex-col gap-2">
@@ -23,7 +23,7 @@ const StrongAndWeak=({dashboardData, isLoading})=>{
                                         dashboardData.strong.map((topic)=>{
                                             return(
                                                 isLoading
-                                                ?<Skeleton key={topic.name} className="w-[520px] h-10"/>
+                                                ?<Skeleton key={topic.name} className="md:w-[520px] h-10 w-full"/>
                                                 :<Button key={topic.name} variant="" className="hover:bg-strong-bg/80 flex  justify-start bg-strong-bg border-strong-border border-[1px] text-strong-text">
                                                     <TrendingUp/>
                                                     {topic.name}
@@ -36,7 +36,7 @@ const StrongAndWeak=({dashboardData, isLoading})=>{
                         </Card>
                         <Card className="flex-1">
                             <CardHeader>
-                                <CardTitle className="text-2xl">
+                                <CardTitle className="text-xl md:text-2xl">
                                     Weak Areas
                                 </CardTitle>
                                 <CardContent className=" flex flex-col gap-2">
@@ -45,7 +45,7 @@ const StrongAndWeak=({dashboardData, isLoading})=>{
                                             return(
                                                 
                                                     isLoading
-                                                    ?<Skeleton key={topic.name} className="w-[520px] h-10"/>
+                                                    ?<Skeleton key={topic.name} className=" w-full md:w-[520px] h-10"/>
                                                     :<Button 
                                                         key={topic.name}
                                                         className="hover:bg-weak-bg/80 flex justify-between bg-weak-bg border-weak-border border-[1px] text-weak-text"

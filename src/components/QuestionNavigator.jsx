@@ -13,7 +13,7 @@ const QuestionNavigator = ({ questionBank, answers, currentQuestion, setCurrentQ
     const answeredCount = answers.filter(answer => answer !== undefined && answer !== "").length;
 
     return (
-        <Card className="w-60 h-fit">
+        <Card className="w-full max-w-xs md:w-60 h-fit">
             <CardHeader>
                 <CardTitle><b className="text-lg">Questions</b></CardTitle>
                 <CardDescription>

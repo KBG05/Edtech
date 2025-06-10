@@ -59,7 +59,7 @@ const MenuBar = ({ completedChapters, completedTopics, filteredTopics, setSearch
 
     return (
         <div>
-            <Card className="w-80 h-fit" >
+            <Card className="w-full md-w-[340px] h-fit" >
                 <CardHeader  >
                     <CardTitle className="flex items-center justify-between text-lg">
                         {selectedCategory?.name || "Artificial Intelligence"}
@@ -83,7 +83,7 @@ const MenuBar = ({ completedChapters, completedTopics, filteredTopics, setSearch
                                         </div>
 
                                     </AccordionTrigger>
-                                    <AccordionContent className=" flex-col flex justify-items-start text-left ">
+                                    <AccordionContent className=" flex flex-col justify-items-start text-left ">
                                         {topic.chapters.map(chapter => (
                                             <Button
                                                 key={chapter.id}

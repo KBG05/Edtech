@@ -45,10 +45,11 @@ const Certify=()=>{
     })
 
     return(
-        <div className="max-w-7xl m-auto p-6">
+        <div className="max-w-7xl m-auto p-3 md:p-6">
             {
                 selectedCategory
                 ?(
+                <div className="flex flex-col lg:flex-row gap-4 w-full">
                     <Assesment
                     answerBank={answerBank}
                     questionBank={questionBank}
@@ -57,6 +58,7 @@ const Certify=()=>{
                     setSelectedTopic={null}
                     >
                     </Assesment>
+                </div>
                 )
                 :(
                     <CategorySelection

@@ -77,7 +77,7 @@ const Assesment = ({ selectedTopic, questionBank, answerBank, selectedCategory, 
     const checkFail=handleCompletion() / effectiveQuestionBank.length<0.5
     return (
         completed ? (
-            <div className="flex max-w-[80%] mx-auto items-center justify-center min-h-[50vh]">
+            <div className="flex flex-col md:flex-row max-w-[98vw] md:max-w-[80%] mx-auto items-center justify-center min-h-[50vh]">
                 <Card className="flex-1 text-center">
                     <CardHeader className="mx-auto">
                         <CardTitle>
@@ -125,7 +125,7 @@ const Assesment = ({ selectedTopic, questionBank, answerBank, selectedCategory, 
                 </Card>
             </div>
         ) : isTopicSelected() ? (
-            <div className="flex flex-col md:flex-row gap-6">
+            <div className="flex flex-col lg:flex-row md:flex-row gap-6 w-full">
                 {/* <QuestionNavigator
                     selectedTopic={selectedTopic}
                     questionBank={effectiveQuestionBank}
@@ -144,51 +144,52 @@ const Assesment = ({ selectedTopic, questionBank, answerBank, selectedCategory, 
                             />
                         </div>
                     </Card>
-                    <div className="flex gap-6">
-                    <QuestionNavigator
-                        selectedTopic={selectedTopic}
-                        questionBank={effectiveQuestionBank}
-                        answers={answers}
-                        currentQuestion={currentQuestion}
-                        setCurrentQuestion={setCurrentQuestion}
-                        navigate={navigate}
-                    />
-                
-                    <Card className="flex-1">
-                        <CardHeader className="text-xl font-bold">
-                            Q{currentQuestion}. {effectiveQuestionBank[currentQuestion - 1]?.question || "Loading question..."}
-                        </CardHeader>
-                        <CardContent className="space-y-10">
-                            <Textarea className="h-36" placeholder="Input your answer"
-                                value={answers[currentQuestion] || ""}
-                                onChange={e => { handleAnswerChange(e.target.value) }}
+                    <div className="flex flex-col lg:flex-row gap-4 w-full">
+                        <div className="flex-none w-full lg:w-[300px] mb-4 lg:mb-0">
+                            <QuestionNavigator
+                                selectedTopic={selectedTopic}
+                                questionBank={effectiveQuestionBank}
+                                answers={answers}
+                                currentQuestion={currentQuestion}
+                                setCurrentQuestion={setCurrentQuestion}
+                                navigate={navigate}
                             />
-                            <AudioRecorder
-                                handleAnswerChange={handleAnswerChange}
-                            />
-                            <div className="flex justify-between">
-                                <Button
-                                    variant="outline"
-                                    disabled={currentQuestion === 1}
-                                    onClick={() => { setCurrentQuestion(currentQuestion - 1); }}
-                                >
-                                    Previous
-                                </Button>
-                                <Button
-                                    variant="default"
-                                    onClick={() => {
-                                        currentQuestion < effectiveQuestionBank.length
-                                            ? setCurrentQuestion(currentQuestion + 1)
-                                            : setCompleted(1);
-                                    }}
-                                    disabled={!answers[currentQuestion]}
-                                >
-                                    {currentQuestion === effectiveQuestionBank.length ? "Submit" : "Next Question"}
-                                </Button>
-                            </div>
-                        </CardContent>
-                    </Card>
-                </div>
+                        </div>    
+                        <Card className="flex-1 w-full">
+                            <CardHeader className="text-xl font-bold">
+                                Q{currentQuestion}. {effectiveQuestionBank[currentQuestion - 1]?.question || "Loading question..."}
+                            </CardHeader>
+                            <CardContent className="space-y-10">
+                                <Textarea className="h-36" placeholder="Input your answer"
+                                    value={answers[currentQuestion] || ""}
+                                    onChange={e => { handleAnswerChange(e.target.value) }}
+                                />
+                                <AudioRecorder
+                                    handleAnswerChange={handleAnswerChange}
+                                />
+                                <div className="flex justify-between">
+                                    <Button
+                                        variant="outline"
+                                        disabled={currentQuestion === 1}
+                                        onClick={() => { setCurrentQuestion(currentQuestion - 1); }}
+                                    >
+                                        Previous
+                                    </Button>
+                                    <Button
+                                        variant="default"
+                                        onClick={() => {
+                                            currentQuestion < effectiveQuestionBank.length
+                                                ? setCurrentQuestion(currentQuestion + 1)
+                                                : setCompleted(1);
+                                        }}
+                                        disabled={!answers[currentQuestion]}
+                                    >
+                                        {currentQuestion === effectiveQuestionBank.length ? "Submit" : "Next Question"}
+                                    </Button>
+                                </div>
+                            </CardContent>
+                        </Card>
+                     </div>
                 </div>
             </div>
         ) : (
