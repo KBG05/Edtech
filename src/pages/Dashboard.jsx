@@ -19,8 +19,8 @@ const Dashboard = () => {
   return (
     <div className="w-full max-w-[98vw] md:max-w-[70%] mx-auto pt-5 px-2"> {/* fix */}
       <div className="space-y-8">
-        <div className="px-2">
-          <p className="text-3xl md:text-5xl font-bold">Welcome</p>
+        <div className="px-6">
+          <p className="text-3xl md:text-4xl  font-bold">Welcome</p>
           <p className="text-muted-foreground text-base md:text-lg pt-1">
             Here's your learning progress
           </p>

@@ -23,11 +23,11 @@ const RecentActivity=({isLoading, dashboardData})=>{
                                 ?<Skeleton key={topic.name} className="w-full h-14"/>
                                 :<Button key={topic.name} variant="outline" className=" flex justify-between h-fit" onClick={()=>{navigate(`/learn/${topic.categoryId}`)}}>
                                     <div className="text-xl">
-                                            <p className="text-xl font-bold text-left flex gap-2">
+                                            <p className="text-sm lg:text-xl md:text-xl font-bold text-left flex gap-2">
                                                 {topic.name}
                                                 <ExternalLink className="self-center"/>
                                             </p>
-                                            <p className="text-muted-foreground text-sm text-left">Last Accessed: {topic.duration} ago</p>
+                                            <p className="text-muted-foreground text-xs lg:text-sm md:text-sm text-left">Last Accessed: {topic.duration} ago</p>
                                     </div>
                                     <div className="w-[30%] flex justify-between gap-6 ">
                                         <Progress value={topic.progress} className="border-border border-[1px]" />

@@ -27,17 +27,17 @@ export function ThemeDropdown() {
   }
 
   return (
-    <div className="relative" ref={dropdownRef}>
+    <div className="relative " ref={dropdownRef}>
       <Button
         variant="outline"
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 min-w-[120px] justify-between"
+        className="flex items-center gap-2 lg:min-w-[120px] md:min-w-[120px] justify-between"
       >
         <div className="flex items-center gap-2">
           <Palette className="h-4 w-4" />
-          <span className="text-sm">{themes[theme]?.name}</span>
+          <span className="text-sm hidden sm:inline">{themes[theme]?.name}</span>
         </div>
-        <ChevronDown className={`h-4 w-4 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+        <ChevronDown className={`h-4 w-4 transition-transform hidden sm:inline ${isOpen ? 'rotate-180' : ''}`} />
       </Button>
 
       {isOpen && (
