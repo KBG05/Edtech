@@ -59,17 +59,7 @@ const Test = () => {
         }).filter(answer => answer !== null);
     }, [questionBank]);
 
-    const filteredTopics = useMemo(() => {
-        if (!selectedCategory) {
-            return [];
-        }
-        if (!searchQuery) {
-            return topics[selectedCategory.id];
-        }
-        return topics[selectedCategory.id].filter(topic =>
-            topic.name.toLowerCase().includes(searchQuery.toLowerCase())
-        );
-    }, [selectedCategory, searchQuery]);
+
 
     return (
         <div className="max-w-7xl mx-auto p-2 md:p-6">
@@ -107,11 +97,11 @@ const Test = () => {
                             questionBank={[]}
                             answerBank={[]}
                             child={<CategorySelection
-                        categories={topics[selectedCategory.id]}
-                        description={""}
-                        header={""}
-                        searchQuery={searchQuery}
-                        setSearchQuery={setSearchQuery}
+                            categories={topics[selectedCategory.id]}
+                            description={""}
+                            header={""}
+                            searchQuery={searchQuery}
+                            setSearchQuery={setSearchQuery}
                         />}
                         />
                     </div>

@@ -65,6 +65,7 @@ const Assesment = ({ selectedTopic, questionBank, answerBank, selectedCategory, 
             navigate(`/certify`)
         }
         else if(location.pathname.startsWith("/test")){
+            setCompleted(0)
             navigate(`/test/${selectedCategory.id}`);
         }
     };
