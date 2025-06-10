@@ -26,10 +26,8 @@ const Login=()=>{
             }
             else{throw new Error("Invalid input")}
         }
-        catch(error){console.log(error)}
-        // todo: add mock login verification
-
-        finally{ 
+        catch(error){
+        
             const timeout= setTimeout(()=>{
             setIsLoading(false)
             setFormData({username:"", password:""})
@@ -37,6 +35,10 @@ const Login=()=>{
                 variant:"destructive"
             })
             },2000)
+        }
+        // todo: add mock login verification
+
+        finally{ 
             
         }
     }
