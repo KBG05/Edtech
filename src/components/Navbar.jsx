@@ -5,6 +5,7 @@ import { Button } from "./ui/button";
 import { ThemeDropdown } from "./ThemeDropdown";
 import { Gauge, Book, ClipboardCheck, ShieldCheck} from "lucide-react";
 
+
 const Navbar=()=>{
     const location=useLocation();
     const navigate=useNavigate();
@@ -25,7 +26,7 @@ const Navbar=()=>{
             <div className=" w-full h-16  max-w-7xl mx-auto lg:px-6 sm:px-10 ">
                 <div className=" flex justify-between items-center h-16">
                     <div className="flex items-center space-x-8">
-                        <Link className="text-3xl font-bold pb-2" to="/learn">EdTech</Link>
+                        <Link className="text-3xl font-bold " to="/learn">EdTech</Link>
                         <div className=" flex  gap-2 ">
                             {navItems.map((item)=>(
                                 <Link
