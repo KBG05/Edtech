@@ -25,7 +25,7 @@ const Navbar = () => {
         {/* Brand + Nav Links */}
         <div className="flex items-center space-x-6 ">
           <Link className="text-2xl font-bold hidden sm:inline" to="/dashboard">
-            EdTech
+            AdoptAI
           </Link>
 
           {/* Full Nav (Desktop) */}
