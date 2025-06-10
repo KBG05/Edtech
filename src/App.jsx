@@ -8,6 +8,7 @@ import { ThemeProvider } from './components/ThemeProvider'
 import Test from './pages/Test'
 import Certify from './pages/Certify'
 import NotFound from './pages/NotFound'
+import Dashboard from './pages/Dashboard'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -17,8 +18,10 @@ function App() {
       <ThemeProvider>
         <Router>
           <Navbar/>
-          <Routes>
+          <Routes >
+            <Route path='/' element={<Login/>} ></Route>
             <Route path='/login' element={<Login/>} ></Route>
+            <Route path='/dashboard' element={<Dashboard/>}></Route>
             <Route path='/learn' element={<Learn/>}></Route>
             <Route path='/learn/:categoryId' element={<Learn/>}></Route>
             <Route path='/learn/:categoryId/:topicId' element={<Learn/>}></Route>

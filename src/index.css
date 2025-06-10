@@ -20,8 +20,8 @@
   --secondary-foreground: 15 23 42;
   --muted: 248 250 252;
   --muted-foreground: 100 116 139;
-  --accent: 241 245 249;
-  --accent-foreground: 15 23 42;
+  --accent: 200 200 200;
+  --accent-foreground: 59 130 246;
   --destructive: 239 68 68;
   --border: 51 65 85;
   --input: 226 232 240;
@@ -31,6 +31,12 @@
   --chart-3: 251 191 36;
   --chart-4: 239 68 68;
   --chart-5: 168 85 247;
+  --strong-bg: 236 253 245; /* Light green background */
+  --strong-text: 22 163 74; /* Darker green text */
+  --strong-border: 100 200 150; /* Medium green border */
+  --weak-bg: 255 240 240; /* Light red background */
+  --weak-text: 200 40 40; /* Darker red text */
+  --weak-border: 255 180 180; /* Muted red border */
 }
 
 /* Dark Theme */
@@ -48,7 +54,7 @@
   --muted: 30 41 59;
   --muted-foreground: 148 163 184;
   --accent: 30 41 59;
-  --accent-foreground: 248 250 252;
+  --accent-foreground: 147 197 253;
   --destructive: 248 113 113;
   --border: 51 65 85;
   --input: 51 65 85;
@@ -58,6 +64,12 @@
   --chart-3: 251 191 36;
   --chart-4: 248 113 113;
   --chart-5: 196 181 253;
+  --strong-bg: 10 30 25; /* Dark greenish background */
+  --strong-text: 74 222 128; /* Brighter green text */
+  --strong-border: 30 60 50; /* Muted green border */
+  --weak-bg: 40 10 10; /* Darker red background */
+  --weak-text: 248 113 113; /* Brighter red text */
+  --weak-border: 60 20 20; /* Muted red border */
 }
 
 /* Ocean Theme - Cool blues and teals */
@@ -93,48 +105,60 @@
   --sidebar-accent-foreground: 150 50 180;
   --sidebar-border: 60 60 90;
   --sidebar-ring: 150 50 180;
+  --strong-bg: 15 45 40; /* Dark greenish-teal background */
+  --strong-text: 100 200 150; /* Soft green text */
+  --strong-border: 40 90 80; /* More saturated green-teal border */
+  --weak-bg: 40 10 20; /* Dark reddish-purple background */
+  --weak-text: 255 120 120; /* Lighter red text */
+  --weak-border: 80 30 40; /* Muted reddish-purple border */
 }
 
 /* Forest Theme - Natural greens */
 .theme-forest {
---background: 37 38 13; /* hsl(63, 50%, 10%) */
-  --foreground: 231 231 228; /* hsl(63, 5%, 90%) */
-  --card: 37 38 13; /* hsl(63, 50%, 10%) */
-  --card-foreground: 231 231 228; /* hsl(63, 5%, 90%) */
-  --popover: 18 19 6; /* hsl(63, 50%, 5%) - a darker background for popovers */
-  --popover-foreground: 231 231 228; /* hsl(63, 5%, 90%) */
-  --primary: 97 100 38; /* hsl(63, 45%, 27%) - your primary color */
-  --primary-foreground: 255 255 255; /* hsl(0, 0%, 100%) - pure white for contrast */
-  --secondary: 65 66 36; /* hsl(63, 30%, 20%) - a slightly less saturated secondary */
-  --secondary-foreground: 255 255 255; /* hsl(0, 0%, 100%) */
-  --muted: 83 61 45; /* hsl(25, 30%, 25%) - an earthy muted tone */
-  --muted-foreground: 158 158 148; /* hsl(63, 5%, 60%) - a softer foreground for muted elements */
-  --accent: 83 61 45; /* hsl(25, 30%, 25%) */
-  --accent-foreground: 231 231 228; /* hsl(63, 5%, 90%) */
-  --destructive: 153 0 0; /* hsl(0, 100%, 30%) - a strong red */
-  --destructive-foreground: 231 231 228; /* hsl(63, 5%, 90%) */
-  --border: 84 86 46; /* hsl(63, 30%, 26%) */
-  --input: 84 86 46; /* hsl(63, 30%, 26%) */
-  --ring: 97 100 38; /* hsl(63, 45%, 27%) */
+  --background: 24 28 20;
+  --foreground: 210 215 200;
+  --card: 24 28 20;
+  --card-foreground: 210 215 200;
+  --popover: 18 20 15;
+  --popover-foreground: 210 215 200;
+  --primary: 60 90 40;
+  --primary-foreground: 255 255 255;
+  --secondary: 45 65 30;
+  --secondary-foreground: 210 215 200;
+  --muted: 80 75 60;
+  --muted-foreground: 150 155 140;
+  --accent: 40 40 60;
+  --accent-foreground: 60 140 40;
+  --destructive: 180 30 30;
+  --destructive-foreground: 255 255 255;
+  --border: 70 80 50;
+  --input: 70 80 50;
+  --ring: 90 120 60;
 
-  /* Derived Chart Colors (complementary/analogous, maintaining earthy/muted feel) */
-  --chart-1: 166 204 51; /* Brighter yellow-green */
-  --chart-2: 217 128 38; /* Muted orange */
-  --chart-3: 77 145 179; /* Desaturated blue */
-  --chart-4: 184 157 20; /* Richer yellow-brown */
-  --chart-5: 128 89 166; /* Muted purple */
+  /* Chart Colors */
+  --chart-1: 120 180 80;
+  --chart-2: 220 160 50;
+  --chart-3: 70 140 160;
+  --chart-4: 190 90 60;
+  --chart-5: 130 90 180;
 
-  /* Derived Sidebar Colors (blending with main theme, slightly darker variants) */
-  --sidebar: 31 33 8; /* Slightly darker than background for sidebar base */
-  --sidebar-foreground: 231 231 228; /* Same as main foreground */
-  --sidebar-primary: 72 74 28; /* Darker primary for sidebar elements */
-  --sidebar-primary-foreground: 255 255 255; /* Same as main primary-foreground */
-  --sidebar-accent: 83 61 45; /* Same as main accent */
-  --sidebar-accent-foreground: 231 231 228; /* Same as main accent-foreground */
-  --sidebar-border: 84 86 46; /* Same as main border */
-  --sidebar-ring: 97 100 38; /* Same as main ring */
+  /* Sidebar Colors */
+  --sidebar: 20 23 17;
+  --sidebar-foreground: 210 215 200;
+  --sidebar-primary: 50 75 35;
+  --sidebar-primary-foreground: 255 255 255;
+  --sidebar-accent: 180 140 60;
+  --sidebar-accent-foreground: 30 35 25;
+  --sidebar-border: 70 80 50;
+  --sidebar-ring: 90 120 60;
 
-  --radius: 0.5rem; /* Your specified radius */
+  --radius: 0.5rem;
+  --strong-bg: 35 55 30; /* Medium earthy green background */
+  --strong-text: 210 215 200; /* Light text */
+  --strong-border: 70 100 50; /* Brighter earthy green border */
+  --weak-bg: 60 30 25; /* Earthy red/brown background */
+  --weak-text: 255 100 100; /* Bright red text */
+  --weak-border: 100 50 40; /* Muted red/brown border */
 }
 
 /* Sunset Theme - Warm oranges and reds */
@@ -162,60 +186,88 @@
   --chart-3: 245 101 101;
   --chart-4: 251 191 36;
   --chart-5: 217 70 239;
+  --strong-bg: 220 240 220; /* Light, warm green background */
+  --strong-text: 60 100 50; /* Dark green text for contrast */
+  --strong-border: 180 200 150; /* Muted green border */
+  --weak-bg: 255 230 220; /* Light orange-red background */
+  --weak-text: 230 80 50; /* Darker orange-red text */
+  --weak-border: 255 180 150; /* Muted orange-red border */
 }
 
 /* Purple Theme - Rich purples */
 .theme-purple {
-  --background: 250 245 255;
-  --foreground: 59 7 100;
-  --card: 255 255 255;
-  --card-foreground: 59 7 100;
-  --popover: 255 255 255;
-  --popover-foreground: 59 7 100;
-  --primary: 124 58 237;
-  --primary-foreground: 255 255 255;
-  --secondary: 245 243 255;
-  --secondary-foreground: 59 7 100;
-  --muted: 248 250 252;
-  --muted-foreground: 88 28 135;
-  --accent: 237 233 254;
-  --accent-foreground: 59 7 100;
-  --destructive: 239 68 68;
-  --border: 196 181 253;
-  --input: 196 181 253;
-  --ring: 124 58 237;
-  --chart-1: 124 58 237;
-  --chart-2: 168 85 247;
-  --chart-3: 217 70 239;
-  --chart-4: 147 51 234;
-  --chart-5: 99 102 241;
+  --background: 255 245 255; /* Very light, soft lavender */
+  --foreground: 50 10 60; /* Deep purple-black for text */
+  --card: 255 255 255; /* Pure white card */
+  --card-foreground: 50 10 60;
+  --popover: 245 235 250; /* Very light popover */
+  --popover-foreground: 50 10 60;
+  --primary: 150 0 150; /* Bright Purple */
+  --primary-foreground: 255 255 255; /* Pure White */
+  --secondary: 230 200 240; /* Soft light purple */
+  --secondary-foreground: 50 10 60;
+  --muted: 240 220 250; /* Slightly darker muted background */
+  --muted-foreground: 120 70 140; /* Muted purple foreground */
+  --accent: 230 230 230; /* Neutral light gray accent */
+  --accent-foreground: 150 0 150; /* Pure White, same as primary-foreground */
+  --destructive: 220 50 50; /* Red for errors */
+  --destructive-foreground: 255 255 255;
+  --border: 200 150 220; /* Light purple border */
+  --input: 200 150 220;
+  --ring: 150 0 150; /* Purple ring */
+
+  /* Chart Colors */
+  --chart-1: 150 0 150; /* Purple */
+  --chart-2: 255 0 255; /* Magenta */
+  --chart-3: 0 150 150; /* Cyan for contrast */
+  --chart-4: 255 120 0; /* Orange for contrast */
+  --chart-5: 80 180 80; /* Green for contrast */
+
+  --radius: 0.5rem;
+  --strong-bg: 200 255 200; /* Light green background */
+  --strong-text: 50 100 50; /* Darker green text */
+  --strong-border: 150 200 150; /* Muted green border */
+  --weak-bg: 255 200 230; /* Light purplish-pink background */
+  --weak-text: 180 0 100; /* Darker magenta-red text */
+  --weak-border: 220 150 200; /* Muted purplish-pink border */
 }
 
 /* Rose Theme - Elegant pinks */
 .theme-rose {
-  --background: 255 251 252;
-  --foreground: 76 5 25;
-  --card: 255 255 255;
-  --card-foreground: 76 5 25;
-  --popover: 255 255 255;
-  --popover-foreground: 76 5 25;
-  --primary: 225 29 72;
-  --primary-foreground: 255 255 255;
-  --secondary: 255 241 242;
-  --secondary-foreground: 76 5 25;
-  --muted: 250 250 250;
-  --muted-foreground: 136 19 55;
-  --accent: 252 231 243;
-  --accent-foreground: 76 5 25;
-  --destructive: 239 68 68;
-  --border: 244 114 182;
-  --input: 244 114 182;
-  --ring: 225 29 72;
-  --chart-1: 225 29 72;
-  --chart-2: 236 72 153;
-  --chart-3: 249 168 212;
-  --chart-4: 219 39 119;
-  --chart-5: 168 85 247;
+  --background: 24 20 28; /* Deep dark purple-blue */
+  --foreground: 235 220 245; /* Soft light purple-gray */
+  --card: 30 25 35; /* Slightly lighter dark card */
+  --card-foreground: 235 220 245;
+  --popover: 18 15 20; /* Even darker popover */
+  --popover-foreground: 235 220 245;
+  --primary: 100 0 100; /* Vibrant Magenta */
+  --primary-foreground: 255 255 255; /* Pure White */
+  --secondary: 60 40 80; /* Muted purple */
+  --secondary-foreground: 235 220 245;
+  --muted: 50 45 60; /* Soft dark muted tone */
+  --muted-foreground: 180 170 190; /* Lighter muted foreground */
+  --accent: 40 40 60; /* Bright, clear purple accent */
+  --accent-foreground: 100 0 100;
+  --destructive: 200 40 40; /* Red for errors */
+  --destructive-foreground: 255 255 255;
+  --border: 70 60 85; /* Purple-gray border */
+  --input: 70 60 85;
+  --ring: 120 20 120; /* A clear purple ring */
+
+  /* Chart Colors */
+  --chart-1: 100 0 100; /* Magenta */
+  --chart-2: 200 0 200; /* Brighter Purple */
+  --chart-3: 0 180 180; /* Teal for contrast */
+  --chart-4: 255 100 0; /* Orange for contrast */
+  --chart-5: 50 200 50; /* Green for contrast */
+
+  --radius: 0.5rem;
+  --strong-bg: 30 60 40; /* Dark, desaturated green background */
+  --strong-text: 200 240 200; /* Light green text */
+  --strong-border: 60 100 70; /* Brighter green border */
+  --weak-bg: 40 10 25; /* Dark reddish-purple background */
+  --weak-text: 255 100 150; /* Lighter pink text */
+  --weak-border: 80 30 50; /* Muted reddish-purple border */
 }
 
 /* Mint Theme - Fresh mint greens */
@@ -232,7 +284,7 @@
   --secondary-foreground: 6 78 59;
   --muted: 247 254 231;
   --muted-foreground: 52 73 94;
-  --accent: 209 250 229;
+  --accent: 167 255 170;
   --accent-foreground: 6 78 59;
   --destructive: 239 68 68;
   --border: 167 243 208;
@@ -243,6 +295,48 @@
   --chart-3: 110 231 183;
   --chart-4: 20 184 166;
   --chart-5: 6 182 212;
+  --strong-bg: 200 250 220; /* Very light minty green background */
+  --strong-text: 6 78 59; /* Dark mint text */
+  --strong-border: 150 220 180; /* Slightly darker mint border */
+  --weak-bg: 255 220 220; /* Light pastel red background */
+  --weak-text: 180 50 50; /* Darker red text */
+  --weak-border: 255 180 180; /* Muted pastel red border */
+}
+
+/* New Dark Teal Theme inspired by the image */
+.theme-dark-teal {
+  --radius: 0.625rem;
+  --background: 10 10 15; /* Even darker base background */
+  --foreground: 220 240 230; /* Light text for contrast */
+  --card: 26 40 36; /* Directly from your image's card background */
+  --card-foreground: 220 240 230; /* Text for the cards */
+  --popover: 15 20 18;
+  --popover-foreground: 220 240 230;
+  --primary: 30 180 150; /* A strong teal/green for primary actions */
+  --primary-foreground: 255 255 255;
+  --secondary: 40 60 55; /* A muted green/teal */
+  --secondary-foreground: 220 240 230;
+  --muted: 50 75 70; /* Muted background, similar to image border */
+  --muted-foreground: 160 180 170;
+  --accent: 50 75 70; /* Accent color, matching image border */
+  --accent-foreground: 220 240 230;
+  --destructive: 200 50 50;
+  --border: 50 75 70; /* Directly from your image's card border */
+  --input: 50 75 70;
+  --ring: 30 180 150;
+
+  --chart-1: 30 180 150; /* Primary teal */
+  --chart-2: 120 220 180; /* Lighter teal */
+  --chart-3: 200 100 255; /* Complementary purple */
+  --chart-4: 255 160 80; /* Complementary orange */
+  --chart-5: 255 250 100; /* Bright yellow for contrast */
+
+  --strong-bg: 20 60 40; /* A distinct dark green background */
+  --strong-text: 150 255 180; /* A bright, contrasting light green text */
+  --strong-border: 40 100 70; /* A vibrant green border */
+  --weak-bg: 50 10 10; /* Dark reddish-brown background */
+  --weak-text: 255 100 100; /* Contrasting light red text */
+  --weak-border: 80 30 30; /* Muted red border */
 }
 
 @layer base {

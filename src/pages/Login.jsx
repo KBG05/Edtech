@@ -7,6 +7,7 @@ import { Label} from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Eye, EyeOff, Loader2Icon } from "lucide-react";
+import { toast } from "sonner";
 
 const Login=()=>{
     const [showPassword, setShowPassword]=useState(false);
@@ -20,15 +21,23 @@ const Login=()=>{
         
         try{
             if(formData.username==="admin" && formData.password==="admin" ){
-                const timeout= setTimeout(()=>{navigate("/learn");setIsLoading(false)},2000)
-                //todo  change navigate to homepage
+                const timeout= setTimeout(()=>{navigate("/dashboard");setIsLoading(false);},2000)
+                
             }
             else{throw new Error("Invalid input")}
         }
         catch(error){console.log(error)}
         // todo: add mock login verification
-        finally{
-            // setIsLoading(false)
+
+        finally{ 
+            const timeout= setTimeout(()=>{
+            setIsLoading(false)
+            setFormData({username:"", password:""})
+            toast("Incorrect Username and Password",{
+                variant:"destructive"
+            })
+            },2000)
+            
         }
     }
 
