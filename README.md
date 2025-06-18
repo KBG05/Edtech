@@ -1,12 +1,35 @@
-# React + Vite
+# Edtech Frontend UI
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This repository contains the frontend-only user interface for a learning platform. Built with **React**, **Tailwind CSS**, and **Vite**, it provides an interactive and modern experience for learners to study, analyze their progress, and take tests or certification exams.
 
-Currently, two official plugins are available:
+## Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- [React](https://react.dev/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Vite](https://vitejs.dev/)
 
-## Expanding the ESLint configuration
+## Features & Pages
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### 1. Learn Page
+- Learn by watching videos or reading content.
+- Organize topics in an **accordion menu** for easy navigation.
+
+### 2. Dashboard
+- Visualize and analyze learning progress and statistics.
+
+### 3. Test Section
+- Take topic-wise tests under each course.
+- **Voice input** supported for answering questions.
+
+### 4. Certify Section
+- Dedicated for **certification exams** covering full courses.
+- Similar interface to the Test section, including voice input.
+
+## Getting Started
+
+```bash
+# Install dependencies
+npm install
+
+# Run the development server
+npm run dev
